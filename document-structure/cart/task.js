@@ -30,13 +30,10 @@ function add() {
   for (let i = 0; i < cartProduct.length; i++) {
     cartProdId[i] = cartProduct[i].getAttribute('data-id');
   }
+  
   if (cartProdId.indexOf(dataID) !== -1) {
-    for (let i = 0; i < cartProdId.length; i++) {
-      if (cartProdId[i] === dataID) {
-        cartProduct[i].querySelector('.cart__product-count').
-        textContent = Number(cartProduct[i].querySelector('.cart__product-count').textContent) + value;
-      }
-    }  
+    let prod = [].slice.call(cartProduct).find(element => element.dataset['id'] === dataID)
+    prod.querySelector('.cart__product-count').textContent = Number(prod.querySelector('.cart__product-count').textContent) + value;
   } 
   else {
     addNewItem();
