@@ -6,26 +6,26 @@ const remove = e => {
 }
 
 const add = e => {
-	tasks.innerHTML +=
+  if (input.value.trim()) {
+	text =
 		`<div class="task">
       <div class="task__title">
         ${input.value}
       </div>
       <a href="#" class="task__remove">&times;</a>
     </div>`;
-
+  tasks.insertAdjacentHTML('afterend', text)
+  let task = document.querySelector(".task__remove")
+  task.addEventListener("click", remove)
+  console.log(task)
+  }
 	input.value = "";
-
-  [...(tasks.getElementsByClassName("task__remove"))].forEach(element => {
-		element.addEventListener("click", remove)
-	});
+  // console.log(task)
+  // tasks.getElementsByClassName("task__remove").forEach(element => {
+	// 	element.addEventListener("click", remove)
+	// });
 
 	e.preventDefault();
 }
 
 document.getElementById("tasks__add").addEventListener("click", add);
-input.addEventListener("keydown", e => {
-	if (e.key === 'Enter') {
-        add(e);
-    }
-});
