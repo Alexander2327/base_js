@@ -1,43 +1,31 @@
-let inputs = document.querySelectorAll('.interest__check');
+let inputs = document.querySelectorAll('.interest');
 
 
 inputs.forEach((input) => {
     input.addEventListener('change', () => {
-        if (input.checked) {
-            let inputMain = input.closest('.interests_active');
-            if (inputMain) {
-                let parent = inputMain.parentElement;
-                parent.children[0].children[0].checked = true;
-            } else {
-                let parent = input.closest('.interest')
-                for (input of parent.querySelectorAll('input')) {
-                    input.checked = true;
-                }
-
+        let parentLi = event.currentTarget;
+        let parent = parentLi.querySelector('.interest__check');
+        let child = parentLi.querySelectorAll('.interest__check');
+            
+        if (event.target === parent) {
+            for (let j = 0; j < child.length; j++) {
+                child[j].checked = parent.checked;                
             }
-        } else {
-            let inputMain = input.closest('.interests_active');
-            if (inputMain) {
-                flag = true;
-                for (inp of inputMain.querySelectorAll('input')) {
-                    if (inp.checked == true) {
-                        flag = false;
-                        break;
-                    }
-                }
-                if (flag) {
-                    let parent = inputMain.parentElement;
-                    input = parent.querySelector('input');
-                    input.checked = false;
-                }
-                
-            } else {
-                let parent = input.closest('.interest')
-                for (input of parent.querySelectorAll('input')) {
-                    input.checked = false;
-                }
+        }
+ 
+        else { 
+            let checkedChilds = event.target.closest('ul').querySelectorAll('.interest__check:checked');    
+            if (checkedChilds.length === 0) {
+                parent.checked = false;
+                parent.indeterminate = false;                        
+            }
+            else if  (checkedChilds.length === child.length - 1) {
+                parent.checked = false;  
+                parent.indeterminate = false;                                  
+            }
+            else {
+                parent.indeterminate = false;
             }
         }
     })
 })
-
