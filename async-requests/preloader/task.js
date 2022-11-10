@@ -1,4 +1,4 @@
-let xhr = new XMLHttpRequest();
+const xhr = new XMLHttpRequest();
 xhr.open('GET', 'https://netology-slow-rest.herokuapp.com');
 xhr.send();
 
@@ -6,10 +6,10 @@ xhr.addEventListener('readystatechange', () => {
     if (xhr.readyState === xhr.DONE && xhr.status === 200) {
         let img = document.getElementById('loader');
         img.classList.remove('loader_active');
-        let resp = JSON.parse(xhr.responseText);
+        const resp = JSON.parse(xhr.responseText);
 
         resultDiv = document.getElementById('items');
-        let vals = resp.response.Valute
+        const vals = resp.response.Valute
         for (let val in vals) {
             let div = ` 
             <div class="item">
